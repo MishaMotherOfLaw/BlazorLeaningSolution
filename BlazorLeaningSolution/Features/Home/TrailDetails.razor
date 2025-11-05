@@ -1,4 +1,5 @@
-﻿<div class="drawer-wrapper @(_isOpen ? "slide" : "")">
+﻿@using BlazingTrails.Client.Features.Home
+<div class="drawer-wrapper @(_isOpen ? "slide" : "")">
     <div class="drawer-mask"></div>
     <div class="drawer">
         @if (p_activeTrail is not null)

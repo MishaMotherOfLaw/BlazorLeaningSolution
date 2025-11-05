@@ -1,4 +1,4 @@
-﻿namespace BlazorLeaningSolution.Features.Layout
+﻿namespace BlazingTrails.Client.Features.Home
 {
     public class Trail
     {
