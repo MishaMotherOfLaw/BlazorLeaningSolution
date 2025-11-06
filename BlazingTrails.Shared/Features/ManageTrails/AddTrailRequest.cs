@@ -1,23 +1,20 @@
-﻿using FluentValidation;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DispatchR;
+using DispatchR.Abstractions.Send;
+using FluentValidation;
 
-namespace BlazingTrails.Shared.Features.ManageTrails
+namespace BlazingTrails.Shared.Features.ManageTrails;
+
+public record AddTrailRequest(TrailDto Trail) : IRequest<AddTrailRequest, ValueTask<AddTrailRequest.Response>>
 {
-    public record AddTrailRequest(TrailDto Trail) :IRequest<AddTrailRequest.Response>
+    public const string RouteTemplate = "/api/trails";
+
+    public record Response(int TrailId);
+}
+
+public class AddTrailRequestValidator : AbstractValidator<AddTrailRequest>
+{
+    public AddTrailRequestValidator()
     {
-        public const string RouteTemplate = "/api/trails";
-        public record Response(int TrailId);
-    }
-    public class AddTrailRequestValidator :AbstractValidator<AddTrailRequest>
-    {
-        public AddTrailRequestValidator()
-        {
-            RuleFor(x => x.Trail).SetValidator(new TrailValidator());
-        }
+        RuleFor(x => x.Trail).SetValidator(new TrailValidator());
     }
 }

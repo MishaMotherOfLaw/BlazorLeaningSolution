@@ -1,35 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>acef24ac-3db4-4294-a27c-26de66edbe05</UserSecretsId>
+	  <TargetFramework>net9.0</TargetFramework>
+	  <Nullable>enable</Nullable>
+	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.ApiEndpoints" Version="4.1.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.10" />
+    <PackageReference Include="Ardalis.ApiEndpoints" Version="4.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="9.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.10">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlazingTrails.Client\BlazingTrails.Client.csproj" />
+    <ProjectReference Include="..\BlazingTrails.Shared\BlazingTrails.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Persistence\Data\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\BlazingTrails.Shared\BlazingTrails.Shared.csproj" />
+    <Folder Include="Persistence\Data\Migrations\" />
   </ItemGroup>
 
 </Project>

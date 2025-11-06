@@ -1,14 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+	  <TargetFramework>net9.0</TargetFramework>
+	  <Nullable>enable</Nullable>
+	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DispatchR.Mediator" Version="2.1.1" />
+    <PackageReference Include="DispatchR.Mediator.Abstractions" Version="2.1.1" />
     <PackageReference Include="FluentValidation" Version="12.1.0" />
-    <PackageReference Include="MediatR" Version="13.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="9.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.10" />
   </ItemGroup>
 
 </Project>
