@@ -21,6 +21,7 @@
 
 	<ItemGroup>
 		<Watch Include="**/*.scss" />
+		<Content Include="Features\ManageTrails\Shared\InputTime.razor.scss" />
 		<None Update="**/*.css" Watch="false" />
 	</ItemGroup>
 
