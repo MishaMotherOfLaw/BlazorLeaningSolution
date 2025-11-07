@@ -25,6 +25,10 @@
 		<None Update="**/*.css" Watch="false" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Features\Home\Requests\" />
+	</ItemGroup>
+
 	<Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">
 		<Exec Command="npm --version" ContinueOnError="true">
 			<Output TaskParameter="ExitCode" PropertyName="ErrorCode" />

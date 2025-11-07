@@ -27,7 +27,7 @@ namespace BlazingTrails.Api.Features.ManageTrails
                 Name = request.Trail.Name,
                 Description = request.Trail.Description,
                 Location = request.Trail.Location,
-                TimeInMinutes = 0,
+                TimeInMinutes = request.Trail.TimeInMinutes,
                 Length = request.Trail.Length
             };
 
