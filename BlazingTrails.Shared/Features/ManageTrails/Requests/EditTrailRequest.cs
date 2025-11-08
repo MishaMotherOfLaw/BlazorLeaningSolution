@@ -1,4 +1,5 @@
-﻿using DispatchR.Abstractions.Send;
+﻿using BlazingTrails.Shared.Features.ManageTrails.Shared;
+using DispatchR.Abstractions.Send;
 using FluentValidation;
 using System;
 using System.Collections.Generic;

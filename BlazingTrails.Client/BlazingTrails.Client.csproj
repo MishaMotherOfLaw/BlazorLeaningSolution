@@ -1,52 +1,57 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
-	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<NpmLastInstall>node_modules/.last-install</NpmLastInstall>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <NpmLastInstall>node_modules/.last-install</NpmLastInstall>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Blazored.FluentValidation" Version="2.2.0" />
-		<PackageReference Include="DispatchR.Mediator" Version="2.1.1" />
-		<PackageReference Include="DispatchR.Mediator.Abstractions" Version="2.1.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.10" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.10" PrivateAssets="all" />
-	</ItemGroup>
+  <!-- NuGet пакеты -->
+  <ItemGroup>
+    <PackageReference Include="Blazored.FluentValidation" Version="2.2.0" />
+    <PackageReference Include="DispatchR.Mediator" Version="2.1.1" />
+    <PackageReference Include="DispatchR.Mediator.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.10" PrivateAssets="all" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\BlazingTrails.Shared\BlazingTrails.Shared.csproj" />
-	</ItemGroup>
+  <!-- Ссылки на другие проекты -->
+  <ItemGroup>
+    <ProjectReference Include="..\BlazingTrails.Shared\BlazingTrails.Shared.csproj" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<Watch Include="**/*.scss" />
-		<Content Include="Features\ManageTrails\Shared\InputTime.razor.scss" />
-		<None Update="**/*.css" Watch="false" />
-	</ItemGroup>
+  <!-- Включение JS-модулей рядом с компонентами -->
 
-	<ItemGroup>
-	  <Folder Include="Features\Home\Requests\" />
-	</ItemGroup>
+  <!-- SCSS-файлы рядом с компонентами -->
+  <ItemGroup>
+    <ScopedScssFiles Include="Features/**/*.razor.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Features\JSC\InputRouteMap.razor.scss" />
+  </ItemGroup>
 
-	<Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">
-		<Exec Command="npm --version" ContinueOnError="true">
-			<Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
-		</Exec>
-		<Error Condition="'$(ErrorCode)' != '0'" Text="NPM is required to build this project." />
-	</Target>
 
-	<Target Name="RunNpmInstall" BeforeTargets="CompileScopedScss" Inputs="package.json" Outputs="$(NpmLastInstall)">
-		<Exec Command="npm install" />
-		<Touch Files="$(NpmLastInstall)" AlwaysCreate="true" />
-	</Target>
+  <!-- Проверка наличия NPM -->
+  <Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">
+    <Exec Command="npm --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="NPM is required to build this project." />
+  </Target>
 
-	<Target Name="CompileScopedScss" BeforeTargets="Compile">
+  <!-- Установка npm-пакетов перед компиляцией SCSS -->
+  <Target Name="RunNpmInstall" BeforeTargets="CompileScopedScss" Inputs="package.json" Outputs="$(NpmLastInstall)">
+    <Exec Command="npm install" />
+    <Touch Files="$(NpmLastInstall)" AlwaysCreate="true" />
+  </Target>
+
+  <!-- Компиляция SCSS рядом с компонентами -->
+  <Target Name="CompileScopedScss" BeforeTargets="Compile">
     <ItemGroup>
-      <ScopedScssFiles Include="Features/**/*.razor.scss" />
+      <_ScopedScssFiles Include="@(ScopedScssFiles)" />
     </ItemGroup>
-    
-		<Exec Command="npm run sass -- %(ScopedScssFiles.Identity) %(relativedir)%(filename).css" />
-	</Target>
+    <Exec Command="npm run sass -- %(_ScopedScssFiles.Identity) %(_ScopedScssFiles.RelativeDir)%(_ScopedScssFiles.Filename).css" />
+  </Target>
 
 </Project>

@@ -2,6 +2,7 @@
 using BlazingTrails.Api.Persistence;
 using BlazingTrails.Api.Persistence.Entities;
 using BlazingTrails.Shared.Features.ManageTrails;
+using BlazingTrails.Shared.Features.ManageTrails.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazingTrails.Api.Features.ManageTrails
@@ -19,28 +20,21 @@ namespace BlazingTrails.Api.Features.ManageTrails
         public override async Task<ActionResult<int>> HandleAsync(AddTrailRequest request, CancellationToken cancellationToken = default)
         {
 
-            if (request?.Trail == null)
-                return BadRequest("Invalid request payload");
-
             var trail = new Trail
             {
                 Name = request.Trail.Name,
                 Description = request.Trail.Description,
                 Location = request.Trail.Location,
                 TimeInMinutes = request.Trail.TimeInMinutes,
-                Length = request.Trail.Length
+                Length = request.Trail.Length,
+                Waypoints = request.Trail.Waypoints.Select(wp => new Waypoint
+                {
+                    Latitude = wp.Latitude,
+                    Longitude = wp.Longitude
+                }).ToList()
             };
 
             await _database.Trails.AddAsync(trail, cancellationToken);
-
-            var routeInstructions = request.Trail.Route.Select(x => new RouteInstruction
-            {
-                Stage = x.Stage,
-                Description = x.Description,
-                Trail = trail
-            });
-
-            await _database.RouteInstructions.AddRangeAsync(routeInstructions, cancellationToken);
             await _database.SaveChangesAsync(cancellationToken);
 
             return Ok(trail.Id);

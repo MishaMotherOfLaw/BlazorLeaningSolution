@@ -1,8 +1,9 @@
-﻿using DispatchR;
+﻿using BlazingTrails.Shared.Features.ManageTrails.Shared;
+using DispatchR;
 using DispatchR.Abstractions.Send;
 using FluentValidation;
 
-namespace BlazingTrails.Shared.Features.ManageTrails;
+namespace BlazingTrails.Shared.Features.ManageTrails.Requests;
 
 public record AddTrailRequest(TrailDto Trail) : IRequest<AddTrailRequest, ValueTask<AddTrailRequest.Response>>
 {

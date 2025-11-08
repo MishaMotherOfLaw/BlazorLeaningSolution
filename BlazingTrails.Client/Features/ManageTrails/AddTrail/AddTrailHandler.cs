@@ -1,4 +1,5 @@
 ﻿using BlazingTrails.Shared.Features.ManageTrails;
+using BlazingTrails.Shared.Features.ManageTrails.Requests;
 using DispatchR;
 using DispatchR.Abstractions.Send;
 using System.Net.Http.Json;

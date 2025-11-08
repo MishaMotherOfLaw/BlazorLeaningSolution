@@ -1,0 +1,45 @@
+/* Error: expected selector.
+ *   ,
+ * 1 | ﻿<h3>ViewSwitcher.razor</h3>
+ *   |  ^
+ *   '
+ *   Features\Home\Components\ViewSwitcher.razor.scss 1:2  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: expected selector.\a   \2577 \a 1 \2502  \feff <h3>ViewSwitcher.razor</h3>\d\a   \2502   ^\a   \2575 \a   Features\\Home\\Components\\ViewSwitcher.razor.scss 1:2  root stylesheet";
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 288px);
+    grid-column-gap: 123px;
+    grid-row-gap: 75px;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: collapse;
+    :: deep th, ::deep td
+
+{
+    padding: .75rem;
+    vertical-align: middle;
+}
+
+::deep thead tr th {
+    border-bottom: 4px solid var(--brand);
+    border-top: none;
+}
+
+::deep tbody tr:nth-of-type(odd) {
+}
+}

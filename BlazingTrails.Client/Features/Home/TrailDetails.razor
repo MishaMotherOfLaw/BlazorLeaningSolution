@@ -1,4 +1,5 @@
-﻿<div class="drawer-wrapper @(_isOpen ? "slide" : "")">
+﻿@using BlazingTrails.Client.Features.JSC
+<div class="drawer-wrapper @(_isOpen ? "slide" : "")">
     <div class="drawer-mask"></div>
     <div class="drawer">
         @if (_activeTrail is not null)
@@ -14,6 +15,12 @@
                     </div>
                     <p class="mt-4">@_activeTrail.Description</p>
                 </div>
+            </div>
+            <div>
+                @if (_activeTrail.Waypoints.Any())
+                {
+                    <RouteMap Waypoints="_activeTrail.Waypoints" Width="100%" IsReadOnly="true" />
+                }
             </div>
             <div class="drawer-controls">
                 <button class="btn btn-secondary" @onclick="Close">Close</button>

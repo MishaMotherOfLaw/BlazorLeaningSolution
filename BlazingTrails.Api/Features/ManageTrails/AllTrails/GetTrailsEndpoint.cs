@@ -18,16 +18,19 @@ namespace BlazingTrails.Api.Features.ManageTrails.AllTrails
         [HttpGet(GetTrailsRequest.RouteTemplate)]
         public override async Task<ActionResult<GetTrailsRequest.Response>> HandleAsync(int trailId, CancellationToken cancellationToken = default)
         {
-            var trails = await _context.Trails.Include(x => x.Route).ToListAsync(cancellationToken);
+            var trails = await _context.Trails.Include(x => x.Waypoints).ToListAsync(cancellationToken);
+
             var response = new GetTrailsRequest.Response(trails.Select(trail => new GetTrailsRequest.Trail(
-            trail.Id,
-            trail.Name,
-            trail.Image,
-            trail.Location,
-            trail.TimeInMinutes,
-            trail.Length,
-            trail.Description
+                trail.Id,
+                trail.Name,
+                trail.Image,
+                trail.Location,
+                trail.TimeInMinutes,
+                trail.Length,
+                trail.Description,
+                trail.Waypoints.Select(wp => new GetTrailsRequest.Waypoint(wp.Latitude, wp.Longitude)).ToList()
             )));
+
             return Ok(response);
         }
     }
